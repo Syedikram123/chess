@@ -1,22 +1,174 @@
+<!-- chess-arena/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chess Arena</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .btn {
+      display: block;
+      margin: 15px auto;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: white;
+      color: black;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .btn:hover {
+      background: black;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>♟️ Welcome to Chess Arena</h1>
-    <p>Select your game mode:</p>
-    <div class="buttons">
-      <a href="vs-bot.html" class="btn">Play vs Bot</a>
-      <a href="two-player.html" class="btn">2 Player Match</a>
-      <a href="tasks.html" class="btn">Puzzle Tasks</a>
-      <button class="btn" onclick="toggleTheme()">Toggle Theme</button>
-    </div>
-  </div>
-  <script src="script.js"></script>
+  <h1>♟️ Welcome to Chess Arena</h1>
+  <button class="btn" onclick="window.location='vs-bot.html'">Play vs Bot</button>
+  <button class="btn" onclick="window.location='two-player.html'">2 Player Match</button>
+</body>
+</html>
+
+<!-- chess-arena/vs-bot.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play vs Bot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/js/chessboard.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    #board {
+      width: 350px;
+      margin: 20px auto;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: white;
+      color: black;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>♖ You vs Bot</h1>
+  <div id="board"></div>
+  <button class="btn" onclick="resetGame()">Reset Game</button>
+  <button class="btn" onclick="window.location='index.html'">Back</button>
+
+  <script>
+    const game = new Chess();
+
+    const board = Chessboard('board', {
+      draggable: true,
+      position: 'start',
+      onDrop: onDrop
+    });
+
+    function onDrop(source, target) {
+      const move = game.move({ from: source, to: target, promotion: 'q' });
+      if (move === null) return 'snapback';
+      setTimeout(makeRandomMove, 250);
+    }
+
+    function makeRandomMove() {
+      if (game.game_over()) return;
+      const moves = game.moves();
+      const move = moves[Math.floor(Math.random() * moves.length)];
+      game.move(move);
+      board.position(game.fen());
+    }
+
+    function resetGame() {
+      game.reset();
+      board.position('start');
+    }
+  </script>
+</body>
+</html>
+
+<!-- chess-arena/two-player.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 Player Match</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/js/chessboard.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    #board {
+      width: 350px;
+      margin: 20px auto;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: white;
+      color: black;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>♙ 2 Player Match</h1>
+  <div id="board"></div>
+  <button class="btn" onclick="resetGame()">Reset Game</button>
+  <button class="btn" onclick="window.location='index.html'">Back</button>
+
+  <script>
+    const game = new Chess();
+
+    const board = Chessboard('board', {
+      draggable: true,
+      position: 'start',
+      onDrop: onDrop
+    });
+
+    function onDrop(source, target) {
+      const move = game.move({ from: source, to: target, promotion: 'q' });
+      if (move === null) return 'snapback';
+    }
+
+    function resetGame() {
+      game.reset();
+      board.position('start');
+    }
+  </script>
 </body>
 </html>
