@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Play vs Bot</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css">
   <style>
-    #board { width: 90vw; max-width: 400px; margin: 20px auto; }
+    #board { width: 350px; margin: 20px auto; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>♖ Play vs Bot</h1>
     <div id="board"></div>
-    <button class="btn" onclick="resetGame()">Reset Game</button>
+    <button class="btn" onclick="resetGame()">Reset</button>
     <a href="index.html" class="btn">← Back</a>
     <button class="btn" onclick="toggleTheme()">Toggle Theme</button>
   </div>
 
-  <!-- Chess Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
-  <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/js/chessboard.min.js"></script>
   <script src="script.js"></script>
-
   <script>
     const game = new Chess();
     const board = Chessboard('board', {
@@ -33,14 +31,9 @@
     });
 
     function onDrop(source, target) {
-      const move = game.move({
-        from: source,
-        to: target,
-        promotion: 'q'
-      });
-
+      const move = game.move({ from: source, to: target, promotion: 'q' });
       if (move === null) return 'snapback';
-      setTimeout(makeRandomMove, 500);
+      setTimeout(makeRandomMove, 300);
     }
 
     function makeRandomMove() {

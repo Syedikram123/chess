@@ -1,4 +1,3 @@
-/* style.css */
 :root {
   --bg-color: #111;
   --text-color: #fff;
@@ -23,41 +22,34 @@ body {
 
 .container {
   text-align: center;
-  padding: 2em;
+  padding: 20px;
 }
 
 h1 {
-  font-size: 3em;
-  margin-bottom: 0.2em;
-}
-
-p {
-  font-size: 1.2em;
-  margin-bottom: 2em;
-  color: var(--text-color);
+  font-size: 2.5em;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 1em;
-  width: 220px;
-  margin: 0 auto;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .btn {
   background-color: var(--btn-bg);
-  border: 2px solid var(--btn-text);
   color: var(--btn-text);
-  padding: 0.8em 1.2em;
-  text-decoration: none;
+  border: 2px solid var(--btn-text);
+  padding: 10px 20px;
   font-size: 1em;
-  border-radius: 10px;
-  transition: 0.3s ease;
+  border-radius: 8px;
   cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
 .btn:hover {
   background-color: var(--btn-hover-bg);
   color: var(--btn-hover-text);
 }
+

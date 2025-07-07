@@ -1,5 +1,3 @@
-// script.js
-
 function applyTheme(theme) {
   const root = document.documentElement;
   if (theme === 'light') {
