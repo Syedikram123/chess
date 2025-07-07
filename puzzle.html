@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Play vs Bot</title>
+  <title>Puzzle Mode</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css">
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
@@ -12,39 +12,47 @@
     body { font-family: Arial, sans-serif; background-color: #111; color: white; text-align: center; padding: 20px; }
     #board { width: 350px; margin: 20px auto; }
     .btn { margin-top: 20px; padding: 10px 20px; font-size: 16px; background: white; color: black; border: none; cursor: pointer; border-radius: 5px; }
+    .score { color: #0f0; font-size: 18px; }
   </style>
 </head>
 <body>
-  <h1>♖ You vs Bot</h1>
+  <h1>♚ Puzzle Mode</h1>
+  <p class="score" id="score">Score: 0</p>
   <div id="board"></div>
-  <button class="btn" onclick="resetGame()">Reset Game</button>
+  <button class="btn" onclick="nextPuzzle()">Next Puzzle</button>
   <button class="btn" onclick="window.location='index.html'">Back</button>
 
   <script>
+    const puzzles = [
+      { fen: "6k1/5Q2/6K1/8/8/8/8/8 w - - 0 1", solution: "f7g7" },
+      { fen: "8/8/8/8/8/6k1/5Q2/6K1 w - - 0 1", solution: "f2f4" }
+    ];
+    let current = 0;
+    let score = 0;
+
     const game = new Chess();
     const board = Chessboard('board', {
       draggable: true,
-      position: 'start',
+      position: puzzles[current].fen,
       onDrop: onDrop
     });
 
     function onDrop(source, target) {
-      const move = game.move({ from: source, to: target, promotion: 'q' });
-      if (move === null) return 'snapback';
-      setTimeout(makeRandomMove, 250);
+      const move = source + target;
+      if (move === puzzles[current].solution) {
+        score++;
+        document.getElementById("score").innerText = "Score: " + score;
+        nextPuzzle();
+      } else {
+        alert("Wrong move! Try again.");
+        return 'snapback';
+      }
     }
 
-    function makeRandomMove() {
-      if (game.game_over()) return;
-      const moves = game.moves();
-      const move = moves[Math.floor(Math.random() * moves.length)];
-      game.move(move);
+    function nextPuzzle() {
+      current = (current + 1) % puzzles.length;
+      game.load(puzzles[current].fen);
       board.position(game.fen());
-    }
-
-    function resetGame() {
-      game.reset();
-      board.position('start');
     }
   </script>
 </body>

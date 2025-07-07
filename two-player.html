@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 Player Match</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/js/chessboard.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #111; color: white; text-align: center; padding: 20px; }
+    #board { width: 350px; margin: 20px auto; }
+    .btn { margin-top: 20px; padding: 10px 20px; font-size: 16px; background: white; color: black; border: none; cursor: pointer; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>♙ 2 Player Match</h1>
+  <div id="board"></div>
+  <button class="btn" onclick="resetGame()">Reset Game</button>
+  <button class="btn" onclick="window.location='index.html'">Back</button>
+
+  <script>
+    const game = new Chess();
+    const board = Chessboard('board', {
+      draggable: true,
+      position: 'start',
+      onDrop: onDrop
+    });
+
+    function onDrop(source, target) {
+      const move = game.move({ from: source, to: target, promotion: 'q' });
+      if (move === null) return 'snapback';
+    }
+
+    function resetGame() {
+      game.reset();
+      board.position('start');
+    }
+  </script>
+</body>
+</html>
