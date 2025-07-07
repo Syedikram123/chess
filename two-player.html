@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <title>2 Player Match</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
-  <style>#board { width: 350px; margin: 20px auto; }</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
+  <style>
+    #board { width: 90vw; max-width: 400px; margin: 20px auto; }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>♙ 2 Player Match</h1>
     <div id="board"></div>
-    <button class="btn" onclick="resetGame()">Reset</button>
+    <button class="btn" onclick="resetGame()">Reset Game</button>
     <a href="index.html" class="btn">← Back</a>
     <button class="btn" onclick="toggleTheme()">Toggle Theme</button>
   </div>
 
+  <!-- Chess Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
   <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
   <script src="script.js"></script>
+
   <script>
     const game = new Chess();
     const board = Chessboard('board', {
@@ -29,7 +33,12 @@
     });
 
     function onDrop(source, target) {
-      const move = game.move({ from: source, to: target, promotion: 'q' });
+      const move = game.move({
+        from: source,
+        to: target,
+        promotion: 'q'
+      });
+
       if (move === null) return 'snapback';
     }
 

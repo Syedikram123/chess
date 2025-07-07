@@ -26,6 +26,5 @@ function toggleTheme() {
   applyTheme(newTheme);
 }
 
-// Apply theme on load
 const savedTheme = localStorage.getItem('theme') || 'dark';
 applyTheme(savedTheme);

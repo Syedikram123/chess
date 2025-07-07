@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>Puzzle Tasks</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
   <style>
-    #board { width: 350px; margin: 20px auto; }
-    .score { color: #0f0; font-size: 1.2em; margin: 10px; }
+    #board { width: 90vw; max-width: 400px; margin: 20px auto; }
+    .score { font-size: 1.2em; color: #0f0; margin: 10px; }
   </style>
 </head>
 <body>
@@ -21,19 +21,21 @@
     <button class="btn" onclick="toggleTheme()">Toggle Theme</button>
   </div>
 
+  <!-- Chess Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
   <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
   <script src="script.js"></script>
+
   <script>
     const puzzles = [
       { fen: "6k1/5Q2/6K1/8/8/8/8/8 w - - 0 1", solution: "f7-g7" },
+      { fen: "8/8/8/8/8/6k1/5Q2/6K1 w - - 0 1", solution: "f2-f4" },
       { fen: "r1bqkbnr/pppppppp/2n5/8/1b6/5NP1/PPPPPP1P/RNBQKB1R w KQkq - 2 4", solution: "f3-e5" }
     ];
 
     let current = 0;
     let score = 0;
     const game = new Chess();
-
     const board = Chessboard('board', {
       draggable: true,
       position: puzzles[current].fen,
@@ -48,7 +50,7 @@
         document.getElementById('score').innerText = `Score: ${score}`;
         nextPuzzle();
       } else {
-        alert("Wrong Move!");
+        alert("Wrong Move! Try Again.");
         return 'snapback';
       }
     }
